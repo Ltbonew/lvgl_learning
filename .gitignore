@@ -1,0 +1,11 @@
+# *.o
+*.o
+*.out
+*.d
+.vscode/
+build/
+bin/
+toolchain.cmake
+DeskBot_demo/conf/dev_conf.h   
+DeskBot_demo/toolchain.cmake
+toolchain.*
