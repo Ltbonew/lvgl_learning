@@ -25,6 +25,7 @@
 
 #include "../../lv_port_linux/lvgl/lvgl.h"
 #include "../../lv_port_linux/lvgl/demos/lv_demos.h"
+#include "../../lv_port_linux/lvgl/examples/lv_examples.h"
 
 #include "lib/driver_backends.h"
 #include "lib/simulator_util.h"
@@ -143,6 +144,8 @@ static void lv_linux_indev_init(void)
  * @param argc the count of arguments in argv
  * @param argv The arguments
  */
+
+// extern "C" void lv_example_libpng_1(void);
 int main(int argc, char **argv)
 {
     //注册显示后端

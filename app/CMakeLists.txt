@@ -28,6 +28,10 @@ add_subdirectory(
     "lvgl_build"
     )
 
+# 添加lib子目录
+add_subdirectory("../lib" "lib_build")
+
+
 if (CONFIG_LV_USE_EVDEV)
     message("Including EVDEV support")
     find_package(PkgConfig REQUIRED)
@@ -185,18 +189,23 @@ target_include_directories(lvgl_linux PUBLIC
 # Link LVGL with external dependencies - Modern CMake/CMP0079 allows this
 target_link_libraries(lvgl PUBLIC ${PKG_CONFIG_LIB} m pthread)
 
-add_executable(lvglsim src/main.c ${LV_LINUX_SRC} ${LV_LINUX_BACKEND_SRC})
+add_executable(lvglsim src/main.cpp ${LV_LINUX_SRC} ${LV_LINUX_BACKEND_SRC})
 
 message("CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+target_include_directories(lvglsim 
+    PRIVATE ${CMAKE_SOURCE_DIR}/lib/PageManager)
 target_include_directories(lvglsim
     PUBLIC  ${CMAKE_SOURCE_DIR}/lv_port_linux/lvgl
 )
 
-target_link_libraries(lvglsim lvgl_linux lvgl)
+target_link_libraries(lvglsim lvgl_linux lvgl PageManagerLib)
 
 if (CONFIG_LV_USE_DRAW_G2D)
     target_link_libraries(lvglsim g2d)
 endif()
+
+# target_link_libraries(lvglsim PRIVATE PageManagerLib)
+
 
 #message{"CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}"}
 # Install the lvgl_linux library and its headers
